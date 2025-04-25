@@ -1,4 +1,3 @@
-import Image from "next/image";
 
 
 const CardsSection = () => {
@@ -10,7 +9,7 @@ const CardsSection = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 ">
         <div className="bg-white shadow-lg rounded-lg p-6 text-center">
           <div className="mb-4 flex justify-center">
-            <Image
+            <img
               src="/imagenes/perrito.png"
               alt="Icono perro"
               width={50}
@@ -24,7 +23,7 @@ const CardsSection = () => {
         </div>
         <div className="bg-white shadow-lg rounded-lg p-6 text-center">
           <div className="mb-4 flex justify-center">
-            <Image
+            <img
               src="/imagenes/bocadillo.png"
               alt="Icono hueso"
               width={50}
@@ -38,7 +37,7 @@ const CardsSection = () => {
         </div>
         <div className="bg-white shadow-lg rounded-lg p-6 text-center">
           <div className="mb-4 flex justify-center">
-            <Image
+            <img
               src="/imagenes/salud.png"
               alt="Icono corazón"
               width={50}
@@ -52,7 +51,7 @@ const CardsSection = () => {
         </div>
         <div className="bg-white shadow-lg rounded-lg p-6 text-center">
           <div className="mb-4 flex justify-center">
-            <Image
+            <img
               src="/imagenes/sostenibilidad.png"
               alt="Icono pata"
               width={50}

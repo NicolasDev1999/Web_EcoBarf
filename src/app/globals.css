@@ -5,7 +5,7 @@
 :root {
   --background: #2d6a4f; /* Color de fondo principal */
   --foreground: #171717; /* Color del texto */
-  --verdeOscuro: #2d6a4f;
+  --verdeOscuro: #2d6a30;
   --verdeClaro: #a8dadc;
   --blanco: #ffffff;
   --grisClaro: #f1f1f1;
@@ -29,5 +29,8 @@ body {
 }
 .staticImage {
   top: 298px;
-  right: 1px;
+  right: 0px;
+}
+.mobile-banner-Img-ecobarf{
+  background-image: url('/imagenes/mobileeco.jpeg');
 }

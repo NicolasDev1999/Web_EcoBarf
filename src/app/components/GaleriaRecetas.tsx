@@ -1,25 +1,24 @@
-import Image from "next/image";
 
 const recetas = [
   {
     id: 1,
     titulo: "Pollo con zanahoria",
-    imagen: "/imagenes/salud.png",
+    imagen: "/imagenes/gurmet.PNG",
   },
   {
     id: 2,
     titulo: "Res con calabaza",
-    imagen: "/imagenes/salud.png",
+    imagen: "/imagenes/pollo.PNG",
   },
   {
     id: 3,
     titulo: "Pavo y espinaca",
-    imagen: "/imagenes/salud.png",
+    imagen: "/imagenes/pavo.PNG",
   },
   {
     id: 4,
     titulo: "Cerdo y manzana",
-    imagen: "/imagenes/salud.png",
+    imagen: "/imagenes/gurmet.PNG",
   },
 ];
 
@@ -35,7 +34,7 @@ export default function GaleriaRecetas() {
             key={receta.id}
             className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
-            <Image
+            <img
               src={receta.imagen}
               alt={receta.titulo}
               width={300}
