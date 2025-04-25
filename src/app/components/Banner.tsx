@@ -7,7 +7,7 @@ export default function Banner() {
     <section className="flex flex-col md:flex-row items-center justify-between bg-background text-white ">
       <div className="w-full md:w-1/2 mb-6 md:mb-0 hidden lg:block relative">
         <Image
-          src="/imagenes/GoldenEcoBarf.png"
+          src="https://png.pngtree.com/png-clipart/20240323/original/pngtree-cute-golden-retriever-dog-png-image_14663036.png"
           alt="Perro feliz comiendo"
           width={500}
           height={500}
@@ -16,7 +16,7 @@ export default function Banner() {
       </div>
       <div className="relative md:hidden">
               <Image
-                src="/imagenes/mobileeco.jpeg"
+                src="/imagenes/GoldenEcoBarf.png"
                 alt="Imagen estática con sombra"
                 width={520}
                 height={600}

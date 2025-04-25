@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "bigblook-industries"
-  }
+    "default": "EcoBarf-",
+    "dev": "ecobarf-7be7e"
+  },
+  "targets": {},
+  "etags": {}
 }
