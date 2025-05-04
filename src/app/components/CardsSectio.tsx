@@ -1,5 +1,3 @@
-
-
 const CardsSection = () => {
   return (
     <section className=" mx-auto p-8 bg-gray-100">

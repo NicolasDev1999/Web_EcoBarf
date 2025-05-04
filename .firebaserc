@@ -1,8 +1,5 @@
 {
   "projects": {
-    "default": "EcoBarf-",
-    "dev": "ecobarf-7be7e"
-  },
-  "targets": {},
-  "etags": {}
+    "default": "ecobarfcolombia"
+  }
 }

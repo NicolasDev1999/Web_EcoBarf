@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <nav className="bg-[var(--grisClaro)] text-[var(--verdeOscuro)] p-4 flex justify-between items-center">
+    <nav className="bg-[var(--grisClaro)] text-[var(--verdeOscuro)] p-4 flex justify-between items-center w-full shadow-md fixed top-0 left-0 z-50">
       {/* Logo */}
       <div className="text-3xl font-bold tracking-wide uppercase">
         ECOBARF
