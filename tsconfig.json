@@ -34,7 +34,7 @@
     ".next/types/**/*.ts",
     "next-env.d.ts",
     "out/types/**/*.ts"
-  ],
+, "src/app/firebase/firebase-admin-config.js"  ],
   "exclude": [
     "node_modules"
   ]

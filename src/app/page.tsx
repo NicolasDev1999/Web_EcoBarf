@@ -1,5 +1,4 @@
 import { Banner, CardsSection, GaleriaRecetas, Navbar, StaticImage } from './imports';
-
 export default function Home() {
   return (
       

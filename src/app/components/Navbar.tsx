@@ -1,5 +1,6 @@
 'use client';
-
+import '../imports'; 
+import '../login/page';  // Esto no es necesario, Next.js maneja la importación de componentes de manera automática.
 import Link from "next/link";
 
 export default function Navbar() {
@@ -14,7 +15,7 @@ export default function Navbar() {
       <div className="lg:hidden">
         <input type="checkbox" id="menu-toggle" className="hidden" />
         <label htmlFor="menu-toggle" className="text-3xl cursor-pointer">
-        ☰
+          ☰
         </label>
 
         <div
@@ -30,6 +31,9 @@ export default function Navbar() {
           <Link href="/about" className="block py-2 hover:underline">
             Conócenos
           </Link>
+          <Link href="/login" className="block py-2 hover:underline">
+            Login
+          </Link>
         </div>
       </div>
 
@@ -43,6 +47,9 @@ export default function Navbar() {
         </Link>
         <Link href="/about" className="hover:underline">
           Conócenos
+        </Link>
+        <Link href="/login" className="hover:underline">  {/* Reemplaza /Login por /login */}
+          Login
         </Link>
       </div>
 
