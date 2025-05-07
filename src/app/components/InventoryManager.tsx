@@ -94,7 +94,7 @@ const InventoryManager = () => {
 
       <hr />
 
-      <h3 className="text-xl font-semibold text-black">Inventario</h3>
+      <h3 className="text-xl font-semibold text-black ">Inventario</h3>
       <ul className="space-y-2">
         {products.map((p) => (
           <li key={p.id} className="text-black flex justify-between items-center border p-2 rounded">
