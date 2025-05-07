@@ -3,58 +3,77 @@
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase/firebase-config";
-import { useRouter } from "next/navigation"; // Importar useRouter
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // Estado para manejar carga
-  const router = useRouter(); // Instancia de useRouter para redirección
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); // Cambiar el estado de carga
+    setLoading(true);
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
-      localStorage.setItem("uid", uid); // Guarda el UID
-
-      // Redirigir al dashboard después de un login exitoso
-      router.push("/UserDashboard"); // Aquí se redirige a la ruta del dashboard
+      localStorage.setItem("uid", uid);
+      router.push("/UserDashboard");
     } catch (err: unknown) {
-      // Verificar que 'err' sea una instancia de Error antes de acceder a sus propiedades
       if (err instanceof Error) {
-        setError("Credenciales inválidas: " + err.message);
+        setError("Credenciales inválidas");
       } else {
-        // Si no es un Error, manejarlo adecuadamente
         setError("Ocurrió un error desconocido");
       }
     } finally {
-      setLoading(false); // Detener el estado de carga
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleLogin} className="flex flex-col gap-4 max-w-sm mx-auto mt-10">
-      <input
-        type="email"
-        placeholder="Correo"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="border p-2"
-      />
-      <input
-        type="password"
-        placeholder="Contraseña"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="border p-2"
-      />
-      {error && <p className="text-red-500">{error}</p>}
-      <button type="submit" className="bg-green-600 text-white p-2" disabled={loading}>
-        {loading ? "Cargando..." : "Iniciar sesión"}
-      </button>
-    </form>
+    <div className="flex items-center justify-center min-h-screen  from-green-100 via-white to-green-50 px-4">
+      <form
+        onSubmit={handleLogin}
+        className="bg-white p-8 pt-6 rounded-2xl shadow-xl w-full max-w-md space-y-6 border border-gray-100 relative"
+      >
+        <div className="flex justify-center -mt-16 mb-2">
+          <img
+            src="/imagenes/GoldenEcoBarf.png" // Asegúrate de tener esta imagen en `public/logo.png`
+            alt="Logo de la marca"
+            className="w-24 h-24 object-contain rounded-full border-4 border-white shadow-md"
+          />
+        </div>
+        <h2 className="text-2xl font-bold text-gray-800 text-center">Iniciar sesión</h2>
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-600">Correo electrónico</label>
+          <input
+            type="email"
+            placeholder="correo@ejemplo.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="text-black w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+        </div>
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-600">Contraseña</label>
+          <input
+            type="password"
+            placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="text-black w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+        </div>
+        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
+        >
+          {loading ? "Cargando..." : "Iniciar sesión"}
+        </button>
+      </form>
+    </div>
   );
 }

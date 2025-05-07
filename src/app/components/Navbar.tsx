@@ -1,43 +1,44 @@
 'use client';
-import '../imports'; 
-import '../login/page';  // Esto no es necesario, Next.js maneja la importación de componentes de manera automática.
+
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => setMenuOpen(!menuOpen);
+  const closeMenu = () => setMenuOpen(false);
+
   return (
     <nav className="bg-[var(--grisClaro)] text-[var(--verdeOscuro)] p-4 flex justify-between items-center w-full shadow-md fixed top-0 left-0 z-50">
-      {/* Logo */}
       <div className="text-3xl font-bold tracking-wide uppercase">
         ECOBARF
       </div>
 
       {/* Menú móvil */}
-      <div className="lg:hidden">
-        <input type="checkbox" id="menu-toggle" className="hidden" />
-        <label htmlFor="menu-toggle" className="text-3xl cursor-pointer">
+      <div className="lg:hidden relative">
+        <button onClick={toggleMenu} className="text-3xl">
           ☰
-        </label>
-
-        <div
-          className="menu-items absolute top-16 left-0 right-0 bg-white p-4 hidden z-10 shadow-lg"
-          id="menu"
-        >
-          <Link href="/benefits" className="block py-2 hover:underline">
-            Beneficios
-          </Link>
-          <Link href="/products" className="block py-2 hover:underline">
-            Productos
-          </Link>
-          <Link href="/about" className="block py-2 hover:underline">
-            Conócenos
-          </Link>
-          <Link href="/login" className="block py-2 hover:underline">
-            Login
-          </Link>
-        </div>
+        </button>
+        {menuOpen && (
+          <div className="absolute top-12 left-0 right-0 bg-white p-4 z-10 shadow-lg">
+            <Link href="/benefits" className="block py-2 hover:underline" onClick={closeMenu}>
+              Beneficios
+            </Link>
+            <Link href="/products" className="block py-2 hover:underline" onClick={closeMenu}>
+              Productos
+            </Link>
+            <Link href="/admin" className="block py-2 hover:underline" onClick={closeMenu}>
+              Conócenos
+            </Link>
+            <Link href="/login" className="block py-2 hover:underline" onClick={closeMenu}>
+              Login
+            </Link>
+          </div>
+        )}
       </div>
 
-      {/* Links de navegación para desktop */}
+      {/* Links de navegación para escritorio */}
       <div className="hidden lg:flex gap-8">
         <Link href="/benefits" className="hover:underline">
           Beneficios
@@ -45,20 +46,13 @@ export default function Navbar() {
         <Link href="/products" className="hover:underline">
           Productos
         </Link>
-        <Link href="/about" className="hover:underline">
+        <Link href="/admin" className="hover:underline">
           Conócenos
         </Link>
-        <Link href="/login" className="hover:underline">  {/* Reemplaza /Login por /login */}
+        <Link href="/login" className="hover:underline">
           Login
         </Link>
       </div>
-
-      <style jsx>{`
-        /* Menú móvil */
-        #menu-toggle:checked + label + .menu-items {
-          display: block;
-        }
-      `}</style>
     </nav>
   );
 }

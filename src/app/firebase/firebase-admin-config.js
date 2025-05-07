@@ -1,7 +1,7 @@
-// firebase-admin-config.js
 import admin from "firebase-admin";
 import path from "path";
 import fs from "fs";
+import { getFirestore } from 'firebase-admin/firestore';  // Agrega la importación de getFirestore
 
 const serviceAccountPath = path.join(process.cwd(), "./src/app/firebase/serviceAccountKey.json");
 
@@ -19,4 +19,7 @@ const app = !admin.apps.length
     })
   : admin.app();
 
-export { app };
+// Inicializa db con getFirestore
+const db = getFirestore(app);
+
+export { app, db };  // Exporta ambos objetos

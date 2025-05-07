@@ -51,15 +51,51 @@ export default function CreateUserForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-sm mx-auto">
-      <input type="email" placeholder="Email" value={email}
-        onChange={(e) => setEmail(e.target.value)} className="border p-2" />
-      <input type="password" placeholder="Contraseña" value={password}
-        onChange={(e) => setPassword(e.target.value)} className="border p-2" />
-      <input type="text" placeholder="Nombre" value={displayName}
-        onChange={(e) => setDisplayName(e.target.value)} className="border p-2" />
-      <button type="submit" className="bg-green-600 text-white p-2">Crear Usuario</button>
-      {message && <p className="text-sm">{message}</p>}
+    <form onSubmit={handleSubmit} className="flex flex-col gap-6 max-w-md mx-auto bg-white p-6 rounded-xl shadow-lg">
+      {/* Título */}
+      <h2 className="text-3xl font-semibold text-center text-gray-700 mb-6">Crear Cuenta</h2>
+
+      {/* Campo Email */}
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 outline-none transition duration-200 text-black"
+      />
+
+      {/* Campo Contraseña */}
+      <input
+        type="password"
+        placeholder="Contraseña"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 outline-none transition duration-200 text-black"
+      />
+
+      {/* Campo Nombre */}
+      <input
+        type="text"
+        placeholder="Nombre Completo"
+        value={displayName}
+        onChange={(e) => setDisplayName(e.target.value)}
+        className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 outline-none transition duration-200 text-black"
+      />
+
+      {/* Botón de Enviar */}
+      <button
+        type="submit"
+        className="w-full p-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200"
+      >
+        Crear Usuario
+      </button>
+
+      {/* Mensaje de feedback */}
+      {message && (
+        <p className={`mt-4 text-center text-sm ${message.startsWith("✅") ? "text-green-600" : "text-red-600"}`}>
+          {message}
+        </p>
+      )}
     </form>
   );
 }
