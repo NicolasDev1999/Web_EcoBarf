@@ -7,7 +7,7 @@ const db = getFirestore(app);
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-
+    console.log('Datos recibidos:', data);
     // Validación de campos requeridos
     const { uid, email, displayName } = data;
 

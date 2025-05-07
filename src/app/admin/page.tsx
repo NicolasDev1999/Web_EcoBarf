@@ -32,11 +32,14 @@ export default function CreateUserForm() {
         }),
       });
 
+      console.log("Response status:", res.status);  // Verifica el status
       const data = await res.json();
-      if (res.ok) {
-        setMessage("✅ Usuario creado y guardado");
-      } else {
+      console.log("API response data:", data);  // Revisa los datos que se están recibiendo de la API
+
+      if (!res.ok) {
         setMessage(data.error || "❌ Error al guardar en Firestore");
+      } else {
+        setMessage("✅ Usuario creado y guardado");
       }
     } catch (error: unknown) {
       // Verificar que 'error' es una instancia de 'Error' antes de acceder a sus propiedades
