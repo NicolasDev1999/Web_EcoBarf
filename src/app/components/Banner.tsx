@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from 'next/image';
 
 export default function Banner() {
   return (
@@ -6,7 +7,7 @@ export default function Banner() {
       {/* Imagen para mobile */}
       <div className="w-full md:w-1/2 mb-6 md:mb-0 relative">
         <div className="md:hidden fixed w-full -z-10 top-[60px] md:top-0">
-          <img
+          <Image
             src="/imagenes/bannermob.jpeg"
             alt="Imagen estática"
             width={520}
@@ -14,7 +15,7 @@ export default function Banner() {
           />
         </div>
         <div className="hidden lg:block relative w-full">
-          <img
+          <Image
             src="/imagenes/GoldenEcoBarf.png"
             alt="Perro feliz comiendo"
             width={500}

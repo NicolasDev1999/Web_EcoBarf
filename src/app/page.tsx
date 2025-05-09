@@ -1,14 +1,13 @@
-import { Banner, CardsSection, GaleriaRecetas, Navbar, StaticImage } from './imports';
+import { Banner, CardsSection, GaleriaRecetas, StaticImage, Footer, Navbar  } from './imports';
 export default function Home() {
   return (
-      
-    <section>
-    <Navbar />
-    <StaticImage/>
-    <Banner />
-    <CardsSection />
-    <GaleriaRecetas />
+    <section>        
+      <Navbar />
+      <StaticImage />
+      <Banner />
+      <CardsSection />
+      <GaleriaRecetas />
+      <Footer />
     </section>
-    
   );
 }

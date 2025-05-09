@@ -1,4 +1,4 @@
-
+import Image from 'next/image';
 const recetas = [
   {
     id: 1,
@@ -34,7 +34,7 @@ export default function GaleriaRecetas() {
             key={receta.id}
             className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
           >
-            <img
+            <Image
               src={receta.imagen}
               alt={receta.titulo}
               width={300}

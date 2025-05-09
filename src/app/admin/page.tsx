@@ -1,9 +1,8 @@
 'use client';
-
 import { useState } from "react";
-import { auth } from "../firebase/firebase-config"; // Ajusta la ruta
+import { auth } from "../firebase/firebase-config";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import '../globals.css';
+import '../imports'
 
 export default function CreateUserForm() {
   const [email, setEmail] = useState("");
@@ -32,14 +31,11 @@ export default function CreateUserForm() {
         }),
       });
 
-      console.log("Response status:", res.status);  // Verifica el status
       const data = await res.json();
-      console.log("API response data:", data);  // Revisa los datos que se están recibiendo de la API
-
-      if (!res.ok) {
-        setMessage(data.error || "❌ Error al guardar en Firestore");
-      } else {
+      if (res.ok) {
         setMessage("✅ Usuario creado y guardado");
+      } else {
+        setMessage(data.error || "❌ Error al guardar en Firestore");
       }
     } catch (error: unknown) {
       // Verificar que 'error' es una instancia de 'Error' antes de acceder a sus propiedades

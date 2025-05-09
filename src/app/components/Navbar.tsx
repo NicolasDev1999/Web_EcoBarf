@@ -1,58 +1,75 @@
 'use client';
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
+import { AnimatePresence, motion } from "framer-motion";
+
+const navLinks = [
+  { href: "/", label: "Beneficios" },
+  { href: "/products", label: "Productos" },
+  { href: "/about", label: "Conócenos" },
+  { href: "/login", label: "Login" },
+];
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-  const closeMenu = () => setMenuOpen(false);
+  // Cierra menú al cambiar de ruta
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   return (
-    <nav className="bg-[var(--grisClaro)] text-[var(--verdeOscuro)] p-4 flex justify-between items-center w-full shadow-md fixed top-0 left-0 z-50">
-      <div className="text-3xl font-bold tracking-wide uppercase">
-        ECOBARF
-      </div>
+    <nav className="bg-[var(--grisClaro)] text-[var(--verdeOscuro)] px-6 py-4 fixed top-0 left-0 w-full z-50 shadow-md">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <Link href="/" className="text-2xl font-bold tracking-wide uppercase">
+          ECOBARF
+        </Link>
 
-      {/* Menú móvil */}
-      <div className="lg:hidden relative">
-        <button onClick={toggleMenu} className="text-3xl">
+        {/* Menú Desktop */}
+        <div className="hidden lg:flex gap-8">
+          {navLinks.map(link => (
+            <Link key={link.href} href={link.href} className="hover:underline font-medium">
+              {link.label}
+            </Link>
+          ))}
+        </div>
+
+        {/* Botón Menú Móvil */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="lg:hidden text-3xl focus:outline-none"
+          aria-label="Abrir menú"
+          aria-expanded={menuOpen}
+        >
           ☰
         </button>
-        {menuOpen && (
-          <div className="absolute top-12 left-0 right-0 bg-white p-4 z-10 shadow-lg">
-            <Link href="/benefits" className="block py-2 hover:underline" onClick={closeMenu}>
-              Beneficios
-            </Link>
-            <Link href="/products" className="block py-2 hover:underline" onClick={closeMenu}>
-              Productos
-            </Link>
-            <Link href="/admin" className="block py-2 hover:underline" onClick={closeMenu}>
-              Conócenos
-            </Link>
-            <Link href="/login" className="block py-2 hover:underline" onClick={closeMenu}>
-              Login
-            </Link>
-          </div>
-        )}
       </div>
 
-      {/* Links de navegación para escritorio */}
-      <div className="hidden lg:flex gap-8">
-        <Link href="/benefits" className="hover:underline">
-          Beneficios
-        </Link>
-        <Link href="/products" className="hover:underline">
-          Productos
-        </Link>
-        <Link href="/admin" className="hover:underline">
-          Conócenos
-        </Link>
-        <Link href="/login" className="hover:underline">
-          Login
-        </Link>
-      </div>
+      {/* Menú Móvil Animado */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden bg-white shadow-md mt-2 rounded-md px-6 py-4 space-y-3"
+          >
+            {navLinks.map(link => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="block text-[var(--verdeOscuro)] hover:underline font-medium"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

@@ -1,43 +1,60 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { app } from '@/app/firebase/firebase-admin-config';
-import { getFirestore } from 'firebase-admin/firestore';
+// src/app/api/createUser/route.ts
+import * as admin from "firebase-admin";
 
-const db = getFirestore(app);
-
-export async function POST(req: NextRequest) {
+// Inicializa Firebase Admin con las credenciales adecuadas
+if (!admin.apps.length) {
   try {
-    const data = await req.json();
-    console.log('Datos recibidos:', data);
-    // Validación de campos requeridos
-    const { uid, email, displayName } = data;
+    admin.initializeApp({
+      credential: admin.credential.cert({
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+        privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n"), // Manejo de salto de línea
+      }),
+    });
+  } catch (error) {
+    console.error("Error al inicializar Firebase Admin:", error);
+  }
+}
 
+// Obtenemos una referencia a Firestore
+const db = admin.firestore();
+
+export async function POST(req: Request) {
+  try {
+    // Extrae los datos del cuerpo de la solicitud
+    const body = await req.json();
+    const { uid, email, displayName } = body;
+
+    // Validación: asegúrate de que los datos necesarios están presentes
     if (!uid || !email || !displayName) {
-      return NextResponse.json({ error: 'Faltan datos requeridos (uid, email, displayName)' }, { status: 400 });
+      return new Response(
+        JSON.stringify({ error: "Faltan campos obligatorios" }),
+        {
+          status: 400, // Código de error 400 si faltan datos
+        }
+      );
     }
 
-    const nuevoUsuario = {
-      uid,
+    // Intentamos crear el usuario en Firestore
+    await db.collection("users").doc(uid).set({
       email,
       displayName,
-      fechaCreacion: new Date().toISOString(),
-    };
+      createdAt: Date.now(),
+    });
 
-    // Verifica si ya existe un usuario con ese UID
-    const userDoc = await db.collection('users').doc(uid).get();
-
-    if (userDoc.exists) {
-      return NextResponse.json({ error: 'El usuario ya existe' }, { status: 409 });
-    }
-
-    // Guarda el usuario
-    await db.collection('users').doc(uid).set(nuevoUsuario);
-
-    return NextResponse.json({ message: 'Usuario registrado exitosamente', usuario: nuevoUsuario }, { status: 201 });
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error('Error al registrar usuario:', error.message);
-      return NextResponse.json({ error: 'Error al registrar el usuario: ' + error.message }, { status: 500 });
-    }
-    return NextResponse.json({ error: 'Error desconocido' }, { status: 500 });
+    // Respuesta exitosa
+    return new Response(
+      JSON.stringify({ message: "Usuario creado con éxito" }),
+      {
+        status: 200, // Código de éxito 200
+      }
+    );
+  } catch (err) {
+    // Manejo de errores
+    console.error("Error al crear usuario:", err);
+    const message = err instanceof Error ? err.message : "Error desconocido";
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500, // Error interno del servidor
+    });
   }
 }

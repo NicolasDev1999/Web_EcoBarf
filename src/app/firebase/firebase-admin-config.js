@@ -1,21 +1,21 @@
-// src/app/firebase/firebaseAdmin.ts
-import admin from "firebase-admin";
-import { getFirestore } from 'firebase-admin/firestore';
+import * as admin from "firebase-admin";
+import path from "path";
+import fs from "fs";
 
-if (!process.env.FIREBASE_PROJECT_ID || !process.env.FIREBASE_CLIENT_EMAIL || !process.env.FIREBASE_PRIVATE_KEY) {
-  throw new Error("❌ Faltan variables de entorno de Firebase.");
+const serviceAccountPath = path.join(process.cwd(), "./src/app/firebase/serviceAccountKey.json");
+
+// Verifica si el archivo existe
+if (!fs.existsSync(serviceAccountPath)) {
+  throw new Error(`❌ No se encontró el archivo serviceAccountKey.json en: ${serviceAccountPath}`);
 }
+
+// Carga el archivo JSON
+const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, "utf-8"));
 
 const app = !admin.apps.length
   ? admin.initializeApp({
-      credential: admin.credential.cert({
-        projectId: process.env.FIREBASE_PROJECT_ID,
-        clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-        privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
-      }),
+      credential: admin.credential.cert(serviceAccount),
     })
   : admin.app();
 
-const db = getFirestore(app);
-
-export { app, db };
+export { app };

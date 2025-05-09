@@ -2,7 +2,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es">
       <head>
-        
+        <meta charSet="UTF-8" />
         <link rel="icon" href="/favicon.ico" />
         <title>ecobarf</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,8 +13,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="custom-cursor ">
         <main>{children}</main>
+
       </body>
-      <footer className="p-4 bg-green-900 text-white text-center">© 2025 EcoBarf</footer>
     </html>
   );
 }
